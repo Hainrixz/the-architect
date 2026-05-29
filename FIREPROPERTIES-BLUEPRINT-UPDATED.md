@@ -753,6 +753,20 @@ npx shadcn-ui@latest init
 - Add Breadcrumbs component (for all filtered pages)
 - **Deliverable:** Navigation works on mobile + desktop, SEO tags present
 
+**Step 4.1: Open Graph & Twitter Card Tags (NEW — AI CRAWLING)**
+- Add dynamic og:title, og:description, og:image to all pages
+- Add og:type (website, article, etc.) per page
+- Add Twitter Card meta tags (twitter:card, twitter:title, twitter:description, twitter:image)
+- Create image generation strategy (og:image for city+type pages should include city name + property type)
+- Example for `/comprar/miami/condos`:
+  ```
+  og:title = "Miami Luxury Condos | FireProperties"
+  og:description = "Explore 47 luxury Miami condos. Average $1.2M. New construction available. Find your dream property."
+  og:image = "https://fireproperties.com/og/miami-condos.png" (dynamic, shows city name)
+  ```
+- Test with Facebook Debugger + Twitter Card Validator
+- **Deliverable:** All public pages have og: + twitter: tags, images render in social shares
+
 **Step 5: Homepage (/)** 
 - Create Hero section with:
   - H1: "Miami Luxury Real Estate & Future Investment Properties"
@@ -765,7 +779,8 @@ npx shadcn-ui@latest init
 - Add FAQ with JSON-LD schema
 - Add CTA footer section
 - Optimize images (Next.js Image component)
-- **Deliverable:** / page is complete, SEO tags in place (H1, meta description)
+- Add meta description: "Discover luxury real estate in Miami, Fort Lauderdale, and Palm Beach. Find condos, new construction, and investment properties. Exclusive off-market deals."
+- **Deliverable:** / page is complete, SEO tags in place (H1, meta description, og:image)
 
 **Step 6: Dynamic City + Type Pages (/comprar/[city]/[type])**
 - Create **dynamic route structure**: /comprar/[city] and /comprar/[city]/[type]
@@ -778,6 +793,59 @@ npx shadcn-ui@latest init
 - Add JSON-LD CollectionPage + SearchAction schema
 - Use getStaticParams() to pre-render all city + type combinations
 - **Deliverable:** 15+ semantic URL pages generated automatically (3 cities × 5 types)
+
+**Step 6.5: AI Crawler Optimization & API Integration (NEW)**
+- Create `/api/ai/properties` endpoint that returns **pure JSON structured data** (no HTML parsing needed)
+- Response format for AI crawlers (Claude, ChatGPT, Perplexity):
+  ```json
+  {
+    "properties": [
+      {
+        "id": "prop-123",
+        "title": "Luxury Miami Condo",
+        "description": "Exclusive 3BR condo in Brickell",
+        "price": 1200000,
+        "location": { "city": "Miami", "type": "Condo" },
+        "bedrooms": 3,
+        "bathrooms": 2,
+        "sqft": 2100,
+        "images": ["url1", "url2"],
+        "url": "https://fireproperties.com/properties/prop-123"
+      }
+    ],
+    "pagination": { "total": 47, "page": 1, "pageSize": 10 },
+    "metadata": {
+      "city": "Miami",
+      "propertyType": "Condos",
+      "averagePrice": 1200000,
+      "priceRange": { "min": 800000, "max": 3500000 }
+    }
+  }
+  ```
+- Update `robots.txt` to allow AI crawlers with explicit allow lists:
+  ```
+  User-agent: GPTBot
+  Allow: /api/ai/properties
+  Allow: /comprar
+  Allow: /mercado
+  Allow: /properties
+  
+  User-agent: CCBot
+  Allow: /api/ai/properties
+  Allow: /comprar
+  Allow: /mercado
+  Allow: /properties
+  
+  User-agent: anthropic-ai
+  Allow: /api/ai/properties
+  Allow: /comprar
+  Allow: /mercado
+  Allow: /properties
+  ```
+- Add `X-Robots-Tag: noodp` and `X-Robots-Tag: noydir` headers (disable directory/ODP snippets)
+- Create `/sitemap-ai.xml` for AI crawlers with all city+type URLs
+- Document API in OpenAPI/Swagger format at `/api-docs`
+- **Deliverable:** AI crawlers can access structured property data directly via /api/ai/properties, robots.txt configured correctly
 
 **Step 7: Search & Map Infrastructure**
 - Setup Algolia index for properties (synced on creation/update)
@@ -845,18 +913,248 @@ npx shadcn-ui@latest init
 
 **Step 14: SEO Optimization & Structured Data (CRITICAL FOR AI)**
 - Create sitemap.xml.ts (dynamic XML sitemap with all city + type pages)
-- Add robots.txt
+- Add robots.txt with AI crawler allow lists (Step 6.5)
 - Add meta descriptions to all pages (title, description, keywords)
-- Create JSON-LD schemas:
-  - Organization (homepage)
-  - LocalBusiness (per city)
-  - Property (individual listings)
-  - BreadcrumbList (all filtered pages) — **CRITICAL FOR AI**
-  - CollectionPage + SearchAction (city + type pages) — **CRITICAL FOR AI**
-- Setup Open Graph tags (og:image, og:title, og:description)
-- Setup Twitter Card tags
-- Test with Google Rich Results test
-- **Deliverable:** Site passes Google Rich Results, sitemap has 100+ URLs, breadcrumbs present
+  - Homepage: "Discover luxury real estate in Miami, Fort Lauderdale, and Palm Beach. Find condos, new construction, and investment properties. Exclusive off-market deals."
+  - City pages: "Miami Luxury Homes | Fire Properties — Discover {totalCount} homes in Miami starting at ${minPrice}. Exclusive properties, expert agents."
+  - City + Type: "Miami Luxury Condos | Fire Properties — {totalCount} luxury condos in Miami. Average price ${avgPrice}. New construction available."
+- Create comprehensive JSON-LD schemas:
+
+  **1. Organization Schema (Homepage)** — complete identity:
+  ```json
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Fire Properties",
+    "url": "https://fireproperties.com",
+    "logo": "https://fireproperties.com/logo.png",
+    "description": "Luxury real estate marketplace for South Florida (Miami, Fort Lauderdale, Palm Beach)",
+    "telephone": "+1-XXX-XXX-XXXX",
+    "email": "info@fireproperties.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "123 Main Street",
+      "addressLocality": "Miami",
+      "addressRegion": "FL",
+      "postalCode": "33101",
+      "addressCountry": "US"
+    },
+    "sameAs": [
+      "https://www.facebook.com/fireproperties",
+      "https://www.instagram.com/fireproperties",
+      "https://www.linkedin.com/company/fireproperties"
+    ],
+    "knowsAbout": ["Real Estate", "Luxury Homes", "Condominiums", "New Construction", "Investment Properties"],
+    "areaServed": [
+      {
+        "@type": "City",
+        "name": "Miami",
+        "addressRegion": "FL",
+        "addressCountry": "US"
+      },
+      {
+        "@type": "City",
+        "name": "Fort Lauderdale",
+        "addressRegion": "FL",
+        "addressCountry": "US"
+      },
+      {
+        "@type": "City",
+        "name": "Palm Beach",
+        "addressRegion": "FL",
+        "addressCountry": "US"
+      }
+    ]
+  }
+  ```
+
+  **2. LocalBusiness Schema (Per City)** — build on city pages (/comprar/[city]):
+  ```json
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Fire Properties - Miami",
+    "image": "https://fireproperties.com/og/miami.png",
+    "description": "Luxury real estate marketplace in Miami",
+    "url": "https://fireproperties.com/comprar/miami",
+    "telephone": "+1-XXX-XXX-XXXX",
+    "email": "miami@fireproperties.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "123 Miami Office",
+      "addressLocality": "Miami",
+      "addressRegion": "FL",
+      "postalCode": "33101",
+      "addressCountry": "US"
+    },
+    "areaServed": "Miami, FL",
+    "serviceType": ["Real Estate Sales", "Home Valuation", "Investment Analysis"],
+    "priceRange": "$$$$",
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "09:00",
+      "closes": "18:00"
+    }
+  }
+  ```
+
+  **3. AggregateOffer Schema** — on city + type pages (/comprar/[city]/[type]):
+  ```json
+  {
+    "@context": "https://schema.org",
+    "@type": "AggregateOffer",
+    "priceCurrency": "USD",
+    "lowPrice": "800000",
+    "highPrice": "3500000",
+    "offerCount": "47",
+    "url": "https://fireproperties.com/comprar/miami/condos",
+    "availability": "https://schema.org/InStock"
+  }
+  ```
+
+  **4. Property Schema** — on individual property pages (/properties/[id]):
+  ```json
+  {
+    "@context": "https://schema.org",
+    "@type": "Property",
+    "name": "Luxury Miami Condo - 3BR/2BA",
+    "image": ["url1", "url2", "url3"],
+    "description": "Exclusive 3-bedroom luxury condo in prestigious Brickell area",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "123 Brickell Ave",
+      "addressLocality": "Miami",
+      "addressRegion": "FL",
+      "postalCode": "33131",
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "25.7617",
+      "longitude": "-80.1918"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "1200000",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "url": "https://fireproperties.com/properties/prop-123"
+    },
+    "numberOfRooms": "3",
+    "numberOfBathroomsTotal": "2",
+    "floorSize": {
+      "@type": "QuantitativeValue",
+      "unitCode": "FTK",
+      "value": "2100"
+    },
+    "propertyType": "Condo",
+    "url": "https://fireproperties.com/properties/prop-123"
+  }
+  ```
+
+  **5. BreadcrumbList** — on all filtered pages (CRITICAL FOR AI):
+  ```json
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://fireproperties.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Buy",
+        "item": "https://fireproperties.com/comprar"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Miami",
+        "item": "https://fireproperties.com/comprar/miami"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Condos",
+        "item": "https://fireproperties.com/comprar/miami/condos"
+      }
+    ]
+  }
+  ```
+
+  **6. CollectionPage + SearchAction** — on city + type pages:
+  ```json
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Miami Luxury Condos",
+    "description": "Browse {totalCount} luxury condos in Miami",
+    "url": "https://fireproperties.com/comprar/miami/condos",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://fireproperties.com/api/search?city=miami&type=condos&q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  }
+  ```
+
+  **7. Author/Expertise Schema** — on market insights pages (/mercado/[city]/[type]):
+  ```json
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Miami New Construction Market 2026",
+    "author": {
+      "@type": "Organization",
+      "name": "Fire Properties",
+      "expertise": ["Real Estate Analysis", "Miami Market Data", "New Construction Trends"],
+      "knownFor": "Luxury real estate expertise in South Florida",
+      "url": "https://fireproperties.com"
+    },
+    "datePublished": "2026-05-29",
+    "dateModified": "2026-05-29"
+  }
+  ```
+
+  **8. FAQ Schema** — on homepage and market pages (for featured snippets):
+  ```json
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How much do luxury condos cost in Miami?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Average prices range from $800K to $3.5M depending on location and amenities. Check our Miami Condos page for current listings."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What new construction is available in Miami?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We feature 15+ new construction projects. Visit /comprar/miami/new-construction to browse available units."
+        }
+      }
+    ]
+  }
+  ```
+
+- Setup Open Graph tags (og:image, og:title, og:description) — completed in Step 4.1
+- Setup Twitter Card tags — completed in Step 4.1
+- Test with **Google Rich Results Test**, **Google Schema Markup Validator**, **JSON-LD Validator**
+- Verify breadcrumbs appear in Google Search Console
+- **Deliverable:** Site passes all Rich Results tests, breadcrumbs in SERP, AggregateOffer rich snippets appear, 100+ URLs in sitemap
 
 **Step 15: Testing & Quality Assurance**
 - Write unit tests for utility functions (formatPrice, generateMetadata, generateSchema)
@@ -879,6 +1177,128 @@ npx shadcn-ui@latest init
 - Setup analytics (Vercel Analytics + PostHog) — track city + type page performance
 - Setup monitoring (Sentry for error tracking)
 - **Deliverable:** Site deploys to production, metrics dashboard visible, city + type pages ranking
+
+---
+
+## 9.5. Internal Linking Strategy (SEO + AI Crawlability)
+
+### Hierarchy & Link Equity Distribution
+
+```
+Homepage (/)
+├─ /comprar (hub page, distributes equity to city pages)
+│  ├─ /comprar/miami (distributes equity to type pages)
+│  │  ├─ /comprar/miami/condos (final destination)
+│  │  ├─ /comprar/miami/homes
+│  │  ├─ /comprar/miami/new-construction
+│  │  └─ /comprar/miami/waterfront
+│  ├─ /comprar/fort-lauderdale
+│  │  ├─ /comprar/fort-lauderdale/condos
+│  │  ├─ /comprar/fort-lauderdale/homes
+│  │  └─ /comprar/fort-lauderdale/new-construction
+│  └─ /comprar/palm-beach
+│     ├─ /comprar/palm-beach/new-construction-condos
+│     └─ /comprar/palm-beach/waterfront
+├─ /mercado (market data hub)
+│  ├─ /mercado/miami
+│  │  ├─ /mercado/miami/condos
+│  │  ├─ /mercado/miami/new-construction
+│  │  └─ /mercado/miami/homes
+│  └─ /mercado/fort-lauderdale
+│     └─ /mercado/fort-lauderdale/new-construction
+├─ /invertir (investment hub)
+│  ├─ /invertir/miami
+│  ├─ /invertir/fort-lauderdale
+│  └─ /invertir/palm-beach
+├─ /vender (seller hub)
+└─ /properties/[id] (individual property detail)
+```
+
+### Linking Patterns
+
+1. **Homepage links to hub pages** (`/comprar`, `/mercado`, `/invertir`, `/vender`):
+   - Anchor text: "Browse Luxury Homes in Miami", "Explore Investment Properties", "Get Home Valuation"
+   - Links are prominent (hero section, main navigation, footer)
+
+2. **Hub pages (/comprar) link to city pages**:
+   - `<a href="/comprar/miami">Miami Luxury Homes</a>`
+   - `<a href="/comprar/fort-lauderdale">Fort Lauderdale Properties</a>`
+   - Include all 3 cities
+
+3. **City pages link to type pages**:
+   - On `/comprar/miami`, include internal links:
+     - `<a href="/comprar/miami/condos">Miami Condos</a>`
+     - `<a href="/comprar/miami/homes">Miami Homes</a>`
+     - `<a href="/comprar/miami/new-construction">Miami New Construction</a>`
+
+4. **Type pages link to market data**:
+   - On `/comprar/miami/condos`, include: `<a href="/mercado/miami/condos">Miami Condo Market Data</a>`
+   - Provides context on pricing trends
+
+5. **Property detail pages link to similar properties**:
+   - Show 3-5 related properties at bottom: `<a href="/properties/similar-prop-id">Similar 3BR Condo in Brickell</a>`
+   - Filter by: same city, same type, similar price range
+   - Helps AI crawlers discover property clusters
+
+6. **Market pages link back to buy pages**:
+   - On `/mercado/miami/new-construction`, include CTA: `<a href="/comprar/miami/new-construction">Browse New Construction</a>`
+   - Closes the loop for users/crawlers
+
+7. **Breadcrumbs as internal links** (HTML + JSON-LD):
+   - Every page has breadcrumbs: `Home > Buy > Miami > Condos`
+   - Each breadcrumb is a clickable link with anchor text matching the hierarchy
+
+8. **Search results link to properties**:
+   - `/comprar` and `/comprar/[city]/[type]` show property cards
+   - Each card links to `/properties/[id]` with anchor: `"View Details"` or property address
+
+### Link Equity Flow
+
+```
+Homepage (high authority)
+    ↓
+/comprar (distributes authority to 3 city pages)
+    ↓
+/comprar/[city] (distributes authority to 5 type pages)
+    ↓
+/comprar/[city]/[type] (property collection pages)
+    ↓
+/properties/[id] (individual property detail)
+```
+
+Each level amplifies focus on the next level. City pages rank for "Miami luxury homes", type pages rank for "Miami condos", individual properties serve long-tail searches.
+
+### AI Crawler Guidance
+
+- Breadcrumbs explicitly show hierarchy: AI crawlers follow the path Home → Buy → Miami → Condos
+- Similar properties links help crawlers discover property clusters by type
+- Market data links (type page → market page) show AI that price/trend data exists
+- Internal link anchor text is descriptive: `"Miami Luxury Condos"` not `"click here"`
+- No orphan pages: all pages reachable from homepage via semantic URL structure
+
+### Implementation in Code
+
+```tsx
+// Example: Breadcrumbs component
+<Breadcrumbs items={[
+  { label: "Home", href: "/" },
+  { label: "Buy", href: "/comprar" },
+  { label: "Miami", href: "/comprar/miami" },
+  { label: "Condos", href: "/comprar/miami/condos", current: true }
+]} />
+
+// Example: Internal link with semantic anchor text
+<Link href="/comprar/miami/condos" className="text-blue-600">
+  Miami Luxury Condos
+</Link>
+
+// Example: Property card internal link
+<Link href={`/properties/${property.id}`}>
+  <h3>{property.address}</h3>
+  <p>${property.price.toLocaleString()}</p>
+  <span>View Details →</span>
+</Link>
+```
 
 ---
 
@@ -1059,7 +1479,20 @@ pnpm test:all          # All tests
 ```markdown
 # FIREPROPERTIES.COM
 
-Luxury real estate marketplace for South Florida (Miami, Ft. Lauderdale, Palm Beach). Three user segments: buyers, sellers, investors. Premium black + white design. **SEO-first with semantic URL structure for AI crawling.**
+Luxury real estate marketplace for South Florida (Miami, Ft. Lauderdale, Palm Beach). Three user segments: buyers, sellers, investors. Premium black + white design. **SEO-first with semantic URL structure and AI-crawlable architecture.**
+
+## AI Crawling Optimization
+
+This project is built specifically for **AI crawler compatibility** (Claude, ChatGPT, Perplexity, GPTBot). Every page includes:
+- **Semantic URLs** encoding query intent: `/comprar/miami/condos` (not `/comprar?city=miami&type=condos`)
+- **JSON-LD structured data** on every public page: Organization, LocalBusiness, Property, BreadcrumbList, CollectionPage, SearchAction, AggregateOffer, Author, FAQ
+- **Breadcrumbs (HTML + JSON-LD)** on all filtered pages for hierarchy clarity
+- **robots.txt allow lists** for AI crawlers (GPTBot, CCBot, anthropic-ai)
+- **/api/ai/properties endpoint** returning pure JSON data (no HTML parsing needed)
+- **Proper heading hierarchy** (H1 per page with keywords, H2 for sections)
+- **Meta descriptions** that are unique per page and include keyword context
+- **Open Graph + Twitter Card tags** with dynamic og:image per page
+- **Internal linking strategy** that guides crawlers through the hierarchy
 
 ## Commands
 
@@ -1176,18 +1609,25 @@ Each city/type page:
 
 ## Reglas No Negociables
 
-1. **TypeScript strict mode.** No `any` types. Use proper typing.
-2. **Mobile-first responsive design.** Design for mobile first, then scale up.
-3. **All forms validated with Zod.** Schema definition + client validation.
-4. **One component per file, max 300 lines.** Extract sub-components if needed.
-5. **No console.logs in production.** Remove before commits to main.
-6. **SEO tags on every page.** metadata object in each page.tsx (title, description, canonical).
+1. **TypeScript strict mode.** No `any` types. Use proper typing everywhere.
+2. **Mobile-first responsive design.** Design for mobile (375px) first, then scale up.
+3. **All forms validated with Zod.** Define schema, validate client + server side.
+4. **One component per file, max 300 lines.** Extract sub-components if longer.
+5. **No console.logs in production.** Remove all debug logs before pushing.
+6. **SEO tags on every page.** Export `metadata` object: title, description, canonical, og:image.
 7. **All API responses consistent shape.** `{ success: boolean, data?: any, error?: string }`
-8. **Protected routes use NextAuth middleware.** No permission checks scattered in components.
-9. **Images use Next.js Image component.** Never use `<img>` tag (except SVGs).
+8. **Protected routes use NextAuth middleware.** No scattered permission checks in components.
+9. **Images use Next.js Image component.** Never use raw `<img>` (except SVGs).
 10. **Database operations through Prisma only.** No raw SQL queries.
-11. **JSON-LD schema on every public page.** BreadcrumbList, CollectionPage, Property, SearchAction.
-12. **Breadcrumbs on all filtered pages.** HTML + JSON-LD for AI crawlability.
+11. **Semantic URLs encode intent.** `/comprar/miami/condos` not `/comprar?city=miami&type=condos`. For AI crawlers.
+12. **JSON-LD schema MANDATORY on every public page.** Organization, LocalBusiness, Property, BreadcrumbList, CollectionPage, SearchAction, AggregateOffer, Author, FAQ.
+13. **Breadcrumbs on all filtered pages.** Both HTML (visible) + JSON-LD (for AI). Each breadcrumb is clickable internal link.
+14. **Meta descriptions unique per page.** Include relevant keywords and property context.
+15. **Open Graph + Twitter Card dynamic.** og:title, og:description, og:image, twitter:card per page.
+16. **AI crawler optimization.** /api/ai/properties endpoint, robots.txt allow lists (GPTBot, CCBot, anthropic-ai), proper heading hierarchy.
+17. **Internal linking strategy.** Follow hierarchy: Homepage → Hub → City → Type → Detail. Use descriptive anchor text.
+18. **Pre-render all city + type pages.** Use getStaticParams() for fast SEO.
+19. **isNewConstruction flag required.** All properties must have this boolean. Property enum includes NEW_CONSTRUCTION.
 ```
 
 ---
@@ -1196,7 +1636,7 @@ Each city/type page:
 
 1. **TypeScript strict mode.** No `any` types. Proper typing on all functions, components, API responses.
 2. **Mobile-first responsive design.** Design for 375px mobile, then scale to desktop. Test on real devices.
-3. **SEO tags on every page.** Each page.tsx must export metadata (title, description, canonical URL, og:image).
+3. **SEO tags on EVERY page.** Each page.tsx must export metadata: title, description, canonical URL, og:image, og:type.
 4. **Zod validation for all forms.** Define schema, validate client-side and server-side.
 5. **One component per file, max 300 lines.** Extract sub-components if longer.
 6. **No `console.log` in production.** Remove all debug logs before pushing to main.
@@ -1205,8 +1645,16 @@ Each city/type page:
 9. **Images use Next.js Image component.** Never use raw `<img>` (except SVGs).
 10. **Database operations only through Prisma.** No raw SQL, no direct driver queries.
 11. **No localStorage for sensitive data.** Use HTTP-only cookies (NextAuth handles this).
-12. **Test critical user flows before deployment.** E2E tests for search → favorite, contact form submission, valuation.
-13. **JSON-LD schema on every public page.** Breadcrumbs, CollectionPage, Property, SearchAction — CRITICAL FOR AI.
-14. **Semantic URLs encode intent.** `/comprar/miami/condos` not `/comprar?city=miami&type=condos`.
-15. **Pre-render city + type pages.** Use getStaticParams() + ISR for fast indexing.
-16. **Breadcrumbs on all filtered pages.** Both HTML and JSON-LD for AI crawlers.
+12. **Test critical user flows before deployment.** E2E tests for search → favorite, contact form, valuation.
+13. **JSON-LD schema MANDATORY on EVERY public page.** Organization, LocalBusiness, Property, BreadcrumbList, CollectionPage, SearchAction, AggregateOffer, Author, FAQ — **CRITICAL FOR AI CRAWLERS**.
+14. **Semantic URLs encode intent.** `/comprar/miami/condos` not `/comprar?city=miami&type=condos`. Every URL tells AI what it's about.
+15. **Pre-render city + type pages.** Use getStaticParams() + ISR for fast indexing and AI discovery.
+16. **Breadcrumbs on all filtered pages.** Both HTML (visible) + JSON-LD (structured). Each breadcrumb is a clickable internal link.
+17. **Internal linking strategy enforced.** Follow hierarchy: Homepage → Hub (/comprar) → City (/comprar/miami) → Type (/comprar/miami/condos) → Detail. Anchor text is descriptive.
+18. **Meta descriptions unique per page.** Not generic. Include keywords, context, offer count if applicable.
+19. **Open Graph + Twitter Cards dynamic.** og:title, og:description, og:image (generated per page), twitter:card, twitter:image.
+20. **AI crawler optimization required.** /api/ai/properties endpoint for JSON data, robots.txt allow lists (GPTBot, CCBot, anthropic-ai), robots.txt no blocking.
+21. **New construction flag on all properties.** isNewConstruction boolean + Property type enum includes NEW_CONSTRUCTION. Surfaces in UI with orange badge.
+22. **Heading hierarchy strict.** One H1 per page with main keyword. H2 for sections. H3 for subsections. No skipped levels.
+23. **Image alt text descriptive.** Every property image has alt: "3BR condo in Miami Brickell, $1.2M" (not "image" or empty).
+24. **Sitemap + robots.txt complete.** Dynamic sitemap with 100+ URLs. robots.txt allows all crawlers including AI crawlers.
