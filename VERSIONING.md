@@ -40,12 +40,12 @@ and may change in a PATCH.
    `phase-3-confirmation.md`, `phase-4-generate.md`.
 4. **The `templates/` paths.** `blueprint-template.md`, `claude-md-template.md`, `tasks-schema.md`,
    `epic-template.md`.
-5. **The plugin and marketplace names.** Marketplace `soyenriquerocha`, plugin `the-architect`. The
+5. **The plugin and marketplace names.** Marketplace `alan8918` (upstream: `soyenriquerocha`), plugin `the-architect`. The
    install pair is a user-facing contract:
 
    ```
-   /plugin marketplace add Hainrixz/the-architect
-   /plugin install the-architect@soyenriquerocha
+   /plugin marketplace add alan8918/the-architect
+   /plugin install the-architect@alan8918
    ```
 
 6. **The command names.** `/architect`, `/architect-quick`, `/architect-brownfield`,

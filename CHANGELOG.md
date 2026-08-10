@@ -54,6 +54,13 @@ MAJOR bump in a repo with no code.
   gained the mainland-China gate, with an explicit instruction not to infer it from the interview
   language — a Chinese-speaking founder building for a US market needs none of it.
 
+### Changed
+
+- **Marketplace renamed `soyenriquerocha` → `alan8918`** in `.claude-plugin/marketplace.json`, so this
+  fork and the upstream marketplace can be added side by side without colliding on the same name.
+  Install is now `/plugin install the-architect@alan8918`. The plugin's own name, author, homepage
+  and upstream attribution are unchanged — only the catalog identifier moved.
+
 ### Why (China capability)
 
 The filings are the whole point. Every one of them completes when a regulator acts, which makes them

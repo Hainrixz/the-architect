@@ -49,8 +49,8 @@ It does **not** write application code. It designs systems and produces blueprin
 Two commands, inside any Claude Code session:
 
 ```
-/plugin marketplace add Hainrixz/the-architect
-/plugin install the-architect@soyenriquerocha
+/plugin marketplace add alan8918/the-architect
+/plugin install the-architect@alan8918
 ```
 
 Then type `/architect` — **in any directory**. Your blueprints are written to `./blueprints/` in whatever folder you're working in, never inside the plugin.
@@ -322,7 +322,7 @@ Full registry with licenses, star counts, and fallbacks: [`knowledge/skills-regi
 the-architect/
 ├── .claude-plugin/
 │   ├── plugin.json                # plugin manifest
-│   └── marketplace.json           # marketplace: soyenriquerocha
+│   └── marketplace.json           # marketplace: alan8918
 ├── CLAUDE.md                      # clone-mode entrypoint
 ├── skills/architect/SKILL.md      # plugin-mode entrypoint — the state machine
 ├── commands/                      # 6 slash commands
@@ -431,8 +431,8 @@ Claude Code lo construye →  lee el blueprint y arma el proyecto paso a paso
 Dos comandos, dentro de cualquier sesión de Claude Code:
 
 ```
-/plugin marketplace add Hainrixz/the-architect
-/plugin install the-architect@soyenriquerocha
+/plugin marketplace add alan8918/the-architect
+/plugin install the-architect@alan8918
 ```
 
 Luego escribe `/architect` — **en cualquier directorio**. Tus blueprints se escriben en `./blueprints/` de la carpeta donde estés trabajando, nunca dentro del plugin.
@@ -704,7 +704,7 @@ Registro completo con licencias, estrellas y respaldos: [`knowledge/skills-regis
 the-architect/
 ├── .claude-plugin/
 │   ├── plugin.json                # manifiesto del plugin
-│   └── marketplace.json           # marketplace: soyenriquerocha
+│   └── marketplace.json           # marketplace: alan8918
 ├── CLAUDE.md                      # punto de entrada en modo clon
 ├── skills/architect/SKILL.md      # punto de entrada en modo plugin — la máquina de estados
 ├── commands/                      # 6 slash commands
@@ -812,11 +812,15 @@ Claude Code 施工   →  读蓝图，一步一步把项目做出来
 
 ### 插件方式（推荐）
 
+> **本仓库是 fork。** marketplace 名为 `alan8918`，与上游 `soyenriquerocha` 区分开，
+> 两个可以同时存在而不冲突。上游是 [Hainrixz/the-architect](https://github.com/Hainrixz/the-architect)，
+> 简体中文支持与中国大陆能力域是本分支新增的。
+
 在任意 Claude Code 会话里执行两条命令：
 
 ```
-/plugin marketplace add Hainrixz/the-architect
-/plugin install the-architect@soyenriquerocha
+/plugin marketplace add alan8918/the-architect
+/plugin install the-architect@alan8918
 ```
 
 然后输入 `/architect`，**在任何目录下都可以**。蓝图写到你当前工作目录的 `./blueprints/`，绝不会写进插件目录。

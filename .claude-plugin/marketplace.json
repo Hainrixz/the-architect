@@ -1,11 +1,11 @@
 {
-  "name": "soyenriquerocha",
+  "name": "alan8918",
   "owner": {
     "name": "Enrique Henry",
     "url": "https://github.com/Hainrixz"
   },
   "metadata": {
-    "description": "EN: Design and build tooling for Claude Code by @soyenriquerocha — tododeia.com. ES: Herramientas de diseño y construcción para Claude Code por @soyenriquerocha — tododeia.com. ZH：@soyenriquerocha 出品的 Claude Code 设计与构建工具集 — tododeia.com。"
+    "description": "EN: Design and build tooling for Claude Code by @soyenriquerocha — tododeia.com. ES: Herramientas de diseño y construcción para Claude Code por @soyenriquerocha — tododeia.com. ZH：@soyenriquerocha 出品的 Claude Code 设计与构建工具集 — tododeia.com。 FORK：本仓库是 alan8918 维护的分支，在上游基础上增加了简体中文支持与中国大陆能力域；上游为 Hainrixz/the-architect。"
   },
   "plugins": [
     {
