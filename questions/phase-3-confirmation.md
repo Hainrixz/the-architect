@@ -66,7 +66,7 @@ A marker is resolved exactly three ways. Pick one per marker, out loud:
 | Resolution | Looks like |
 |---|---|
 | **Answered** | The user tells you. Record the answer in the blueprint. |
-| **Defaulted** | You state the default AND the user confirms it: "I'm assuming one workspace per user for v1 — say so if that's wrong." Silence is not confirmation on anything load-bearing. |
+| **Defaulted** | You state the default AND the user confirms it: "I'm assuming one workspace per user for v1 — say so if that's wrong." Silence is not confirmation on anything load-bearing. In Chinese, "嗯"／"好的"／"了解" is acknowledgement, not assent — "可以"／"就这样"／"没问题" is. |
 | **Deferred** | It becomes an explicit Non-Goal (Section 1). "No multi-workspace in v1" is a legitimate answer. |
 
 Batch related markers into your questions — max 3 questions per message, same as every other phase.

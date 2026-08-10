@@ -1346,7 +1346,21 @@ Resolve these in the main thread and re-invoke.
     blueprint itself already satisfies before any code is written. That gates nothing.
 11. **Write the blueprint in the user's language** when the prompt tells you what it is. Section
     headings, rationale, and acceptance criteria all follow it. Code, commands, and identifiers stay
-    in English.
+    in English. When that language is not English, `knowledge/localization.md` is the binding
+    contract and these five are the ones writers get wrong:
+    - **Numbered headings keep both the number and the English name** — `## 9. 构建顺序 (Build Order)`.
+      Finding 11 matches by number; downstream tooling and `/architect-audit` read the English name.
+    - **The slug and every path, table, column, route, git tag and branch are ASCII.** Derive the slug
+      from an English short name if the brief carries one, otherwise toneless pinyin. A CJK character
+      in a `git tag` or a `files[]` entry fails on the builder's machine, hours in.
+    - **`tasks.json` is machine-readable end to end.** Keys, `id`, `epic`, `files[]`, `verify[]` and
+      the `status` values `pending` / `in_progress` / `done` stay English. `/architect-next` compares
+      `status` literally.
+    - **EARS keywords stay uppercase English** inside a translated criterion:
+      WHEN `pnpm test` 运行，THE SYSTEM SHALL 退出码为 0。
+    - **The vague-criterion ban is language-independent.** 正常工作 / 正确处理 / 实现完成 / 符合预期 /
+      没问题 are finding 2, exactly as "works" and "is wired up" are. Name a command, an exit code,
+      an HTTP status, a row count or a path — or the criterion is not one.
 12. **Be opinionated in the document.** "We use X because Y" — never "you could use X, Y, or Z". The
     builder needs a decision, not a menu.
 13. **You can never ask the user anything.** `AskUserQuestion` is stripped from every subagent. Every

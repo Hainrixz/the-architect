@@ -43,6 +43,11 @@ the only file the builder needs to answer "where am I?" after a context reset.
 
 A JSON array of task objects. No wrapper, no metadata envelope — the array *is* the file.
 
+**This file is machine-read, so it is ASCII English regardless of the user's language.** Keys, `id`,
+`epic`, `files[]`, `verify[]` and `status` never localize. Only `title` and `acceptance[]` prose
+follow the user — and inside `acceptance[]`, the EARS keywords stay uppercase English:
+`"WHEN \`pnpm test\` 运行，THE SYSTEM SHALL 退出码为 0"`. See `knowledge/localization.md`.
+
 ```json
 [ { "id": "E1-T1", "...": "..." }, { "id": "E1-T2", "...": "..." } ]
 ```
@@ -60,7 +65,7 @@ A JSON array of task objects. No wrapper, no metadata envelope — the array *is
 | `verify` | string[] | yes | **An ARRAY of shell commands — always, even when there is one.** Each is run from the target project root, **exits 0 when the task is correct**, and exits non-zero on failure. |
 | `checkpoint` | string | yes | The version-control tag this task's commit carries: `step-{NN}-{slug}`, the **same tag** the corresponding `blueprint.md` §9 step carries. `NN` is the global two-digit step number, not the per-epic task number. This is the rollback target. |
 | `files` | string[] | yes | Paths this task creates or edits. Globs allowed. Doubles as the parallel-safety check. |
-| `status` | string | yes | `pending` · `in_progress` · `done`. Every task starts `pending`. |
+| `status` | string | yes | `pending` · `in_progress` · `done`. Every task starts `pending`. **These three literals are never translated** — `/architect-next` compares them exactly, so a localized value makes every task invisible and the build reads as finished. |
 
 ### Field rules that matter
 

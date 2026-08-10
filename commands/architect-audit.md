@@ -1,5 +1,5 @@
 ---
-description: Run the blueprint-validator against an existing blueprint and report PASS/FAIL with specifics. Blueprints written before v2 will FAIL — they have no acceptance criteria. That is expected, not a bug. / Audita un blueprint existente con el validador; los blueprints v1 fallan porque no tienen criterios de aceptación.
+description: Run the blueprint-validator against an existing blueprint and report PASS/FAIL with specifics. Blueprints written before v2 will FAIL — they have no acceptance criteria. That is expected, not a bug. / Audita un blueprint existente con el validador; los blueprints v1 fallan porque no tienen criterios de aceptación. / 用校验器审计已有蓝图并给出 PASS／FAIL 及具体问题。v2 之前的蓝图必定 FAIL——它们没有验收标准，这是预期行为。触发："检查一下这份蓝图"、"蓝图有没有问题"。
 argument-hint: "<path/to/blueprint.md | path/to/bundle/>"
 allowed-tools:
   - Read
@@ -75,4 +75,5 @@ autonomously buildable bundle, which is the only thing this command measures.
 2. **No partial credit language.** "Mostly passes" is a FAIL with extra words.
 3. **Every finding names a file and a location.** A finding you cannot locate is a hunch, and hunches
    do not go in the table.
-4. Detect and use the user's language.
+4. Detect and use the user's language. Not English? Apply `knowledge/localization.md` — prose
+   follows the user, identifiers/paths/commands/`status` values/EARS keywords stay English.

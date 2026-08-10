@@ -1,5 +1,5 @@
 ---
-description: Design a change against an existing codebase — maps the repo's stack, conventions, structure and tests, then emits a blueprint for a feature, refactor, or migration instead of a from-scratch build. / Diseña un cambio sobre un repo existente — mapea stack y convenciones y emite un blueprint de cambio, no de proyecto nuevo.
+description: Design a change against an existing codebase — maps the repo's stack, conventions, structure and tests, then emits a blueprint for a feature, refactor, or migration instead of a from-scratch build. / Diseña un cambio sobre un repo existente — mapea stack y convenciones y emite un blueprint de cambio, no de proyecto nuevo. / 针对存量代码库设计变更——先摸清仓库的技术栈、约定、结构与测试，再输出功能／重构／迁移蓝图，而不是从零开始。触发："分析我现有的代码"、"给这个仓库加个功能"、"重构这个项目"、"迁移到 X"。
 argument-hint: "[what you want to change, add, or migrate]"
 allowed-tools:
   - Read
@@ -141,7 +141,8 @@ gets **Section 9.1** or the validator fails it. Its six parts:
    instance writes the code.
 5. **Every step has an observable "Done when"** and a verify command drawn from the repo's real test
    and lint commands.
-6. Detect and use the user's language.
+6. Detect and use the user's language. Not English? Apply `knowledge/localization.md` — prose
+   follows the user, identifiers/paths/commands/`status` values/EARS keywords stay English.
 
 ## After completion
 

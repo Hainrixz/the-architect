@@ -40,6 +40,13 @@ At most **two** of these, and only when the shape branch leaves them genuinely o
 | "Does this touch personal data, payments, or health/financial records?" | Any real user data | Loads `knowledge/capabilities/enterprise-readiness.md` and changes the data model |
 | "Any accessibility obligation — public sector, EU, enterprise procurement?" | Any UI, any buyer with a legal team | Loads `knowledge/capabilities/accessibility.md` and adds acceptance criteria, not a polish pass |
 | "Who deploys and operates this after it ships?" | Solo founder vs a platform team | Determines how much of `knowledge/capabilities/deployment.md` and `observability.md` is warranted |
+| **"Are the users inside mainland China, or outside?"** | **Ask on every project whose audience Phase 1 did not already place** | **Loads `knowledge/capabilities/china-mainland.md`, and it is the one capability that must be read before the stack table rather than after — it changes hosting, auth, payments and the model provider at once** |
+
+**The mainland-China follow-up is a gate, not a preference.** If the answer is "inside", ask one more
+question immediately — *"境内部署还是境外部署？"* — because ICP filing gates the host answering for the
+domain at all, and everything downstream forks on it. Then read
+`knowledge/capabilities/china-mainland.md` in full before Phase 3. Its filings are calendar time owned
+by a regulator, so they land in the blueprint's §20.1 manual gates and never in the §9 build order.
 
 ---
 

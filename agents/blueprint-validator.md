@@ -48,7 +48,7 @@ There is no "PASS with reservations". There is no partial credit.
 | # | Condition | Severity |
 |---|---|---|
 | 1 | A build step with **no acceptance criteria** or **no verify command** | BLOCKER |
-| 2 | An acceptance criterion that is **not observable** — "works", "looks right", "works correctly", "is implemented", "is wired up", "is complete", "properly handles" | BLOCKER |
+| 2 | An acceptance criterion that is **not observable** — "works", "looks right", "works correctly", "is implemented", "is wired up", "is complete", "properly handles". Language-independent: 正常工作 / 运行正常 / 正确处理 / 妥善处理 / 已实现 / 实现完成 / 接入完成 / 符合预期 / 没问题 / 稳定运行 / 体验流畅, and the hedges 应该 / 大概 / 尽量 / 基本上, are the same finding — see `knowledge/localization.md` for the full list | BLOCKER |
 | 3 | An **oversized step** — more than ~6 acceptance criteria, or touching more than ~5 files | MAJOR |
 | 4 | An **env var used but not documented** in Environment Setup | BLOCKER |
 | 5 | A **dangling reference** — a file, section, table, command, or step number mentioned but never defined | MAJOR |
@@ -57,7 +57,7 @@ There is no "PASS with reservations". There is no partial credit.
 | 8 | A **surviving `{placeholder}`** from the template | BLOCKER |
 | 9 | A **`[NEEDS CLARIFICATION]` marker** left in the output | BLOCKER |
 | 10 | A pin **contradicting its own stated provenance** — a version whose provenance cell is empty when the template provides one, a `PRERELEASE` used as the stable dependency, a major that exists only as an RC, or a hosted service given a version it does not have | BLOCKER |
-| 11 | A **missing numbered section** — the blueprint must carry every numbered heading the template defines, `NOT APPLICABLE — <reason>` included | BLOCKER |
+| 11 | A **missing numbered section** — the blueprint must carry every numbered heading the template defines, `NOT APPLICABLE — <reason>` included. **Match by number, never by heading text**: a blueprint written in another language carries `## 9. 构建顺序 (Build Order)`, which is present, not missing | BLOCKER |
 | 12 | An **empty or under-5-row Non-Goals table** in §1 — it is the scope fence, and without it the builder's scope is unbounded | BLOCKER |
 | 13 | A build step with **no Checkpoint / `git tag`** — there is no rollback target, so a bad step cannot be undone | MAJOR |
 | 14 | **No §20.1 global acceptance gate**, or a gate that is not a runnable command list | MAJOR |
@@ -83,6 +83,7 @@ There is no "PASS with reservations". There is no partial credit.
 | 34 | A **`Verify` that depends on state its own `Checkpoint` produces** — a step gate asserting a clean working tree, a tracked file, a committed change or an existing tag over paths that same step writes. Every step template orders Do → Done when → **Verify** → **Checkpoint**, so the commit has not happened when the gate runs and the assertion cannot be true | BLOCKER |
 | 35 | A **byte-exact artifact that contradicts the blueprint or its runtime** — a golden file, an expected-output block or a fixture whose literal bytes the blueprint dictates, containing **(a)** a value that violates a §4/§5 definition the same blueprint states (a path prefix against a field defined as relative to the run root is the canonical shape), or **(b)** a message the **runtime** emits rather than the project's own code — a parser error, a stack trace, a library or tool string — with no statement that it was captured from the pinned version | BLOCKER |
 | 36 | A **gate that passes vacuously** — a check whose success condition is a non-zero exit (or a non-empty/non-match result) without pinning the *expected* code or text, so a usage error, a wrong arity, an unknown flag or a missing file satisfies it without the guarded property ever being tested | MAJOR — BLOCKER when it is the only check of that property |
+| 38 | A **localization boundary violation** — a non-ASCII character inside anything a machine reads: a path, directory, filename, identifier, table or column name, API route, env var name, git tag or branch, a `tasks.json` key, `id`, `epic`, `files[]` or `verify[]` entry, or a `status` value; **or** a translated control token — the EARS keywords `WHEN` / `THE SYSTEM SHALL`, `[NEEDS CLARIFICATION: …]`, `NOT APPLICABLE`, `pending` / `in_progress` / `done`. Each one fails silently: the gate is never evaluated, `/architect-next` finds no work, or `git tag` fails on the builder's machine hours in. See `knowledge/localization.md` | BLOCKER |
 | 37 | An **ignore file or governing config delivered after the command it governs** — in §10's Bootstrap or the §9 step order, a file whose purpose is to change what a later command sees (`.gitignore`, `.dockerignore`, a lint/format ignore, a tool config a gate reads) written *after* that command has already run | MAJOR — BLOCKER when the effect is irreversible, as tracking is |
 
 Escalate 3, 5, and 6 to BLOCKER when the affected step is on the critical path (scaffolding, schema,
@@ -275,7 +276,7 @@ file arrives after the command it was supposed to govern.
 `Grep` the blueprint for `pattern: "^## [0-9]+\\."`, `output_mode: "content"`, `-n: true`. Then
 `Grep` `${CLAUDE_PLUGIN_ROOT}/templates/blueprint-template.md` with the same pattern.
 
-Diff the two lists by number and by heading text. **The template's list is the contract.** Any
+Diff the two lists **by number**. **The template's list is the contract.** Any
 number present in the template and absent from the blueprint is finding #11 — including a section
 the writer decided was irrelevant, because `NOT APPLICABLE — <reason>` is the correct way to say
 that and deletion silently renumbers everything after it. The template currently defines 20; read
@@ -285,6 +286,12 @@ Then `Grep` the blueprint for `pattern: "^### [0-9]+\\.[0-9]"` and confirm §19'
 subsections survived — **§19.1 through §19.6** and §20.1 through §20.4 are the ones that get dropped,
 and they are the ones that carry the agent workspace and the acceptance gate. Read the subsection
 list off the template the same way you read the section list; do not trust that range from memory.
+
+**Heading text in a non-English blueprint.** `knowledge/localization.md` requires the canonical form
+`## 9. 构建顺序 (Build Order)` — number first, translated name, English name in parentheses. Diff on
+the number alone; a translated name is correct work, not a missing section. A heading that dropped
+the **number** is #11. A heading that kept the number but dropped the **English name** is MINOR, and
+worth one line in the report because every name-based cross-reference in the bundle then dangles.
 
 **§19.6 is the one to check hardest**, because it is the newest and the writer is the likeliest to
 never have heard of it. It is *Verify-critical config and local infrastructure*: the runner configs,
@@ -346,6 +353,13 @@ a fenced code block that is *real syntax* — `{ ok: true }` in a `curl | jq` li
 
 `Grep` `pattern: "\\bworks\\b|works correctly|looks (right|good|correct)|properly|as expected|is implemented|functions well|renders correctly|is wired up|is complete|no issues|user can use|handles .* correctly|behaves"`,
 `output_mode: "content"`, `-n: true`, `-i: true`.
+
+**When the blueprint is not in English, run the second pattern too** — the one above matches
+nothing in a Chinese document, and a validator that reports "0 vague criteria" over 14 untested
+gates is worse than no sweep at all. `Grep`
+`pattern: "正常工作|工作正常|正常运行|运行正常|能正常使用|没问题|无异常|看起来正常|显示正确|正确处理|妥善处理|合理处理|正确实现|已实现|实现完成|开发完成|接入完成|对接好|符合预期|达到预期|体验流畅|性能良好|稳定运行|用户满意|应该|尽量|尽可能|基本上"`,
+`output_mode: "content"`, `-n: true`. Same rule as bare `works`: legitimate outside the build order,
+never legitimate inside a *Done when* or an `acceptance[]` entry.
 
 Every hit inside the build order is finding #2 until proven otherwise. **Bare `works` is the single
 most important term in that pattern** — "Done when: billing works" is the canonical defect this repo
@@ -1550,6 +1564,55 @@ genuinely cannot precede the command, the blueprint must state the repair explic
 point — a `.dockerignore` written at step 4 when the first `docker build` is at step 9 — is correct
 work. Ordering is the whole finding; check the positions before filing, never the file's presence
 alone.
+
+---
+
+## Sweep 28 — the localization boundary (finding #38)
+
+**Skip this sweep entirely when the blueprint is written in English.** Otherwise it is mandatory,
+and it is cheap: every check is a grep, and every hit is a build that dies on the builder's machine
+rather than in your report.
+
+`knowledge/localization.md` draws one line: prose, headings and rationale follow the user; everything
+a machine reads stays ASCII English. This sweep walks that line in four passes.
+
+**1 — non-ASCII inside a machine-read string.** `Grep` the blueprint and every bundle file for
+`pattern: "[^\\x00-\\x7F]"`, `output_mode: "content"`, `-n: true`. You will get many hits; almost all
+are legitimate prose. Keep only the ones inside:
+
+- a fenced code block, a `` `code span` `` naming a path/command/identifier, or a §3 tree entry
+- a `Verify` command, a §20.1 gate line, a `git tag` name, a branch name
+- `tasks.json` — any key, or the value of `id`, `epic`, `status`, `files[]`, `verify[]`
+- an env var **name** (the value may be anything), a table or column name, an API route
+- the §19.6 emitted config bodies, and every filename under `workspace/`
+
+Each survivor is #38, BLOCKER. Quote the line and give the ASCII replacement — for a slug or a path,
+toneless pinyin or the project's English short name, per `knowledge/localization.md`.
+
+**2 — the slug.** Read the bundle's own directory name and every `git tag step-NN-<slug>` in §9.
+`Grep` `pattern: "git tag[^\\n]*[^\\x00-\\x7F]"`. One CJK character in a tag is #38 on its own, and
+it is the failure mode that costs the most, because it surfaces at step 3 of 14 with hours of work
+behind it.
+
+**3 — translated control tokens.** Four greps, and an empty result on any of them is the finding
+when the document is otherwise non-English:
+
+| Grep | Expect | If empty |
+|---|---|---|
+| `pattern: "THE SYSTEM SHALL"` | one hit per acceptance criterion | criteria were translated wholesale — every gate in the document is now unverifiable. **BLOCKER**, and it invalidates Sweep 2's result |
+| `pattern: "\"status\": \"(pending\|in_progress\|done)\""` in `tasks.json` | one per task | `status` was translated; `/architect-next` will report the build finished on turn one. **BLOCKER** |
+| `pattern: "NOT APPLICABLE"` | matches Sweep 0's inapplicable sections | the token was translated; finding #11's escape hatch no longer reads as one |
+| `pattern: "NEEDS CLARIFICATION"` | zero hits | — but also `Grep` `pattern: "需要澄清\|待澄清\|待确认"`: a translated marker is finding #9, and Sweep 1 cannot see it |
+
+**4 — encoding.** Every emitted `workspace/` file: `Grep` `pattern: "^\\xEF\\xBB\\xBF"` or read the
+first bytes. A UTF-8 BOM on a `.env`, a shell script, a JSON file or anything with a shebang is
+#38 — the §10 Bootstrap's first command reads a garbled first key and the bundle fails its own first
+gate. State UTF-8 **without BOM** in the fix.
+
+> Report line when clean:
+> Localization boundary (zh-Hans): 0 non-ASCII in paths/identifiers/refs/`tasks.json`; EARS keywords
+> present on 14/14 criteria; `status` values English on 22/22 tasks; 0 translated markers; 6/6
+> `workspace/` files UTF-8 without BOM.
 
 ---
 

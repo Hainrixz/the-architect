@@ -11,6 +11,10 @@ Last verified: 2026-07-27
 ## How to run this phase
 
 1. **Detect the user's language** from their first message. Conduct the entire interview in it.
+   Not English? Read `knowledge/localization.md` now — it is the boundary between what follows the
+   user and what stays ASCII English (identifiers, paths, commands, `status` values, EARS keywords).
+   For a CJK language also ask, once, whether the project has an English short name: the slug,
+   every directory and every git tag are ASCII, and guessing a romanization late is expensive.
 2. **Max 3 questions per message.** Hard rule. Never dump the question list.
 3. **Gate 0 first** (new vs existing). It changes every downstream phase, so ask it before anything else.
 4. Ask Q1–Q3. By the end of Q3 you should have a shape or a shortlist of two.
@@ -65,6 +69,14 @@ error handling, CI in the build order.
 
 Constraints beat preferences. "We're a Python shop" and "must run on our own hardware" change the
 runtime track before you get to recommend one.
+
+**One constraint outranks the rest, and it is not a technical one: where the users are.** If Q2's
+answer places them inside mainland China — or the brief says 国内 / 大陆 / 境内, names a mainland
+cloud, or mentions 备案, 微信小程序, 微信支付 or 支付宝 — say so in the RUNNING BRIEF now and read
+`knowledge/capabilities/china-mainland.md` in Phase 2 **before drafting the stack table**. It rewrites
+hosting, identity, payments and the model provider together, and it adds regulator-gated filings
+measured in weeks. Discovering it in Phase 3 means redesigning, not adjusting. Do not infer it from
+the interview language: a Chinese-speaking founder building for a US market needs none of it. Ask.
 
 ### Q5 — Timeline *(ask only if scope is unclear)*
 > "What's the horizon — a weekend, a couple of weeks, or a quarter?"

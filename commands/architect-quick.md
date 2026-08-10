@@ -1,5 +1,5 @@
 ---
-description: Fast-track blueprint — three questions, smart defaults for everything else, still validator-gated. For when you just want it built. / Blueprint express — tres preguntas, defaults inteligentes, con el mismo validador.
+description: Fast-track blueprint — three questions, smart defaults for everything else, still validator-gated. For when you just want it built. / Blueprint express — tres preguntas, defaults inteligentes, con el mismo validador. / 快速蓝图——只问三个问题，其余走智能默认，仍须通过校验器。触发："快速出方案"、"直接开做"、"别问了直接生成"。
 argument-hint: "[one-line project description]"
 allowed-tools:
   - Read
@@ -86,7 +86,8 @@ Then stop asking. Everything else is a default you choose and **state out loud**
 2. **Every build step still gets an observable "Done when"** and a verify command. This is the part
    people try to cut for speed. It is the part that makes the build survive.
 3. **State every default you applied** in the summary, so the user knows what they got by omission.
-4. Detect and use the user's language.
+4. Detect and use the user's language. Not English? Apply `knowledge/localization.md` — prose
+   follows the user, identifiers/paths/commands/`status` values/EARS keywords stay English.
 
 ## After completion
 

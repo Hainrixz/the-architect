@@ -1,5 +1,5 @@
 ---
-description: Interview, design, and emit a self-contained build bundle for a new project — 4 phases, acceptance criteria on every step, validator-gated. / Entrevista, diseña y genera un bundle autocontenido para un proyecto nuevo.
+description: Interview, design, and emit a self-contained build bundle for a new project — 4 phases, acceptance criteria on every step, validator-gated. / Entrevista, diseña y genera un bundle autocontenido para un proyecto nuevo. / 访谈、设计并生成全新项目的自包含蓝图包——四个阶段，每步都带验收标准，须通过校验器。触发："帮我设计架构"、"技术选型建议"、"生成蓝图"、"规划这个项目"。
 argument-hint: "[what you want to build]"
 allowed-tools:
   - Read

@@ -19,6 +19,7 @@ The same rule applies to the built project: model ids live in **config or enviro
 - The brief mentions embeddings, semantic search, auto-tagging, or first-pass moderation.
 - Cost per request is variable and shows up in the P&L — see `knowledge/capabilities/credit-metering.md`.
 - If the model also *acts* — calls tools in a loop, runs for minutes — you need `knowledge/capabilities/agent-loop.md` on top of this.
+- The users are inside mainland China → `knowledge/capabilities/china-mainland.md`. Foreign model endpoints are not a production path from inside the border, a public generative feature carries a filing and a required disclosure surface, and input **and** output moderation stop being optional. The single-gateway rule below is what makes the provider swap a config change instead of a rewrite.
 
 ## Decision matrix
 

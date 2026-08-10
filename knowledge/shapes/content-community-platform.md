@@ -54,6 +54,11 @@ member timezones, and cancellation windows are a different problem from publishi
 platform brief reaches it faster than anyone expects. Model the session as a Post with a schedule and
 let that capability own the slot logic; do not invent a parallel calendar.
 
+Also pull in **`knowledge/capabilities/china-mainland.md` when the members are inside mainland China**
+— user-generated content there is moderated *before* publish rather than on report, which turns
+"create post" from an insert into an asynchronous state machine and changes the data model, not just
+the policy.
+
 ## Data model
 
 | Entity | Key fields | Relationships |

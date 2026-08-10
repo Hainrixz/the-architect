@@ -9,7 +9,8 @@
   <p align="center">
     <a href="https://tododeia.com">tododeia.com</a> &middot;
     <a href="#english">English</a> &middot;
-    <a href="#español">Español</a>
+    <a href="#español">Español</a> &middot;
+    <a href="#简体中文">简体中文</a>
   </p>
 </p>
 
@@ -48,8 +49,8 @@ It does **not** write application code. It designs systems and produces blueprin
 Two commands, inside any Claude Code session:
 
 ```
-/plugin marketplace add Hainrixz/the-architect
-/plugin install the-architect@soyenriquerocha
+/plugin marketplace add alan8918/the-architect
+/plugin install the-architect@alan8918
 ```
 
 Then type `/architect` — **in any directory**. Your blueprints are written to `./blueprints/` in whatever folder you're working in, never inside the plugin.
@@ -229,7 +230,7 @@ Ambiguous brief? It names the two candidates, says which it would pick and why, 
 |---|---|---|---|
 | **Shape** | [`knowledge/shapes/`](knowledge/shapes/) (14) | *What is it?* | **Never** |
 | **Runtime track** | [`knowledge/runtime-tracks/`](knowledge/runtime-tracks/) (5) | *What is it written in?* | **Yes — only here** |
-| **Capability** | [`knowledge/capabilities/`](knowledge/capabilities/) (18) | *What does it do?* | **Never** |
+| **Capability** | [`knowledge/capabilities/`](knowledge/capabilities/) (19) | *What does it do?* | **Never** |
 
 A shape says "the project's ORM" and links to its track. Only the track names a package and a number. And even the track is treated as a **cache, not a source of truth**: the `stack-researcher` report produced in *this* session outranks it, always. A stale cached pin never overrides a live registry check.
 
@@ -321,7 +322,7 @@ Full registry with licenses, star counts, and fallbacks: [`knowledge/skills-regi
 the-architect/
 ├── .claude-plugin/
 │   ├── plugin.json                # plugin manifest
-│   └── marketplace.json           # marketplace: soyenriquerocha
+│   └── marketplace.json           # marketplace: alan8918
 ├── CLAUDE.md                      # clone-mode entrypoint
 ├── skills/architect/SKILL.md      # plugin-mode entrypoint — the state machine
 ├── commands/                      # 6 slash commands
@@ -329,7 +330,7 @@ the-architect/
 ├── knowledge/
 │   ├── shapes/                    # 14 — what it is        (no version pins)
 │   ├── runtime-tracks/            #  5 — what it's written in  (ONLY place pins live)
-│   ├── capabilities/              # 18 — what it does       (no version pins)
+│   ├── capabilities/              # 19 — what it does       (no version pins)
 │   ├── skills-registry.md         # skill names, install commands, fallbacks
 │   └── stack-compatibility.md     # known-bad combinations, cross-axis
 ├── questions/                     # the single source for the interview flow
@@ -346,7 +347,9 @@ the-architect/
 
 **Runtime tracks:** `ts-node.md` · `python.md` · `go.md` · `rails-laravel.md` · `mobile-native.md`
 
-**Capabilities:** `auth` · `database` · `deployment` · `api-design` · `frontend-architecture` · `testing` · `styling` · `state-management` · `ai-llm-integration` · `agent-loop` · `credit-metering` · `payments-rails` · `realtime-voice` · `sync-and-collab` · `availability-engine` · `enterprise-readiness` · `accessibility` · `observability`
+**Capabilities:** `auth` · `database` · `deployment` · `api-design` · `frontend-architecture` · `testing` · `styling` · `state-management` · `ai-llm-integration` · `agent-loop` · `credit-metering` · `payments-rails` · `realtime-voice` · `sync-and-collab` · `availability-engine` · `enterprise-readiness` · `accessibility` · `observability` · `china-mainland`
+
+`china-mainland` is the one capability read *before* the stack table rather than after: shipping to users inside mainland China rewrites hosting, identity, payments and the model provider together, and adds regulator-gated filings measured in weeks. See the [简体中文](#简体中文) section.
 
 `questions/` is the single source for the interview. `CLAUDE.md` reads it by relative path; `skills/architect/SKILL.md` reads the same files via `${CLAUDE_PLUGIN_ROOT}/questions/…`. Nothing is duplicated.
 
@@ -428,8 +431,8 @@ Claude Code lo construye →  lee el blueprint y arma el proyecto paso a paso
 Dos comandos, dentro de cualquier sesión de Claude Code:
 
 ```
-/plugin marketplace add Hainrixz/the-architect
-/plugin install the-architect@soyenriquerocha
+/plugin marketplace add alan8918/the-architect
+/plugin install the-architect@alan8918
 ```
 
 Luego escribe `/architect` — **en cualquier directorio**. Tus blueprints se escriben en `./blueprints/` de la carpeta donde estés trabajando, nunca dentro del plugin.
@@ -609,7 +612,7 @@ v1 tenía 6 arquetipos. v2 tiene 14 shapes, y son agnósticos al stack — un sh
 |---|---|---|---|
 | **Shape** | [`knowledge/shapes/`](knowledge/shapes/) (14) | *¿Qué es?* | **Nunca** |
 | **Runtime track** | [`knowledge/runtime-tracks/`](knowledge/runtime-tracks/) (5) | *¿En qué está escrito?* | **Sí — solo aquí** |
-| **Capability** | [`knowledge/capabilities/`](knowledge/capabilities/) (18) | *¿Qué hace?* | **Nunca** |
+| **Capability** | [`knowledge/capabilities/`](knowledge/capabilities/) (19) | *¿Qué hace?* | **Nunca** |
 
 Un shape dice "el ORM del proyecto" y enlaza a su track. Solo el track nombra un paquete y un número. Y hasta el track se trata como **caché, no como fuente de verdad**: el reporte de `stack-researcher` producido en *esta* sesión le gana, siempre. Un pin cacheado y viejo jamás sobrescribe una verificación en vivo del registro.
 
@@ -701,7 +704,7 @@ Registro completo con licencias, estrellas y respaldos: [`knowledge/skills-regis
 the-architect/
 ├── .claude-plugin/
 │   ├── plugin.json                # manifiesto del plugin
-│   └── marketplace.json           # marketplace: soyenriquerocha
+│   └── marketplace.json           # marketplace: alan8918
 ├── CLAUDE.md                      # punto de entrada en modo clon
 ├── skills/architect/SKILL.md      # punto de entrada en modo plugin — la máquina de estados
 ├── commands/                      # 6 slash commands
@@ -709,7 +712,7 @@ the-architect/
 ├── knowledge/
 │   ├── shapes/                    # 14 — qué es              (sin versiones)
 │   ├── runtime-tracks/            #  5 — en qué está escrito (ÚNICO lugar con versiones)
-│   ├── capabilities/              # 18 — qué hace            (sin versiones)
+│   ├── capabilities/              # 19 — qué hace            (sin versiones)
 │   ├── skills-registry.md         # nombres de skills, instalación, respaldos
 │   └── stack-compatibility.md     # combinaciones conocidas como malas, entre ejes
 ├── questions/                     # la fuente única del flujo de entrevista
@@ -726,7 +729,9 @@ the-architect/
 
 **Runtime tracks:** `ts-node.md` · `python.md` · `go.md` · `rails-laravel.md` · `mobile-native.md`
 
-**Capabilities:** `auth` · `database` · `deployment` · `api-design` · `frontend-architecture` · `testing` · `styling` · `state-management` · `ai-llm-integration` · `agent-loop` · `credit-metering` · `payments-rails` · `realtime-voice` · `sync-and-collab` · `availability-engine` · `enterprise-readiness` · `accessibility` · `observability`
+**Capabilities:** `auth` · `database` · `deployment` · `api-design` · `frontend-architecture` · `testing` · `styling` · `state-management` · `ai-llm-integration` · `agent-loop` · `credit-metering` · `payments-rails` · `realtime-voice` · `sync-and-collab` · `availability-engine` · `enterprise-readiness` · `accessibility` · `observability` · `china-mainland`
+
+`china-mainland` es la única capability que se lee *antes* de la tabla de stack: enviar a usuarios en China continental reescribe hosting, identidad, pagos y proveedor de modelo a la vez, y agrega trámites regulatorios medidos en semanas.
 
 `questions/` es la fuente única de la entrevista. `CLAUDE.md` la lee por ruta relativa; `skills/architect/SKILL.md` lee los mismos archivos vía `${CLAUDE_PLUGIN_ROOT}/questions/…`. Nada se duplica.
 
@@ -779,3 +784,276 @@ MIT. Ver [LICENSE](LICENSE).
 ---
 
 ## Construido por [tododeia.com](https://tododeia.com) · [@soyenriquerocha](https://github.com/Hainrixz)
+
+---
+---
+
+# 简体中文
+
+## The Architect 是什么？
+
+盖房子之前得先有**图纸**——每个房间、每堵墙、每根管线都画清楚，工人才知道怎么干。
+
+**The Architect 就是给软件画这张图纸的工具。**
+
+```
+你描述           →  "一个餐厅订座 SaaS，要团队账号，接 Stripe"
+The Architect 设计 →  访谈你、定技术栈、写出蓝图
+Claude Code 施工   →  读蓝图，一步一步把项目做出来
+```
+
+它**不写业务代码**。它做系统设计，产出蓝图——一份自包含的 markdown，另一个毫无上下文的 Claude Code 实例照着它就能构建，中途一句都不用问你。
+
+**全程支持简体中文。** 你用中文提第一句话，之后的访谈、架构方案、蓝图正文、生成的 `CLAUDE.md` 全部是中文；而路径、标识符、命令、`tasks.json` 的键与状态值保持英文——这条边界写在 [`knowledge/localization.md`](knowledge/localization.md) 里，是硬约束，不是风格偏好。
+
+---
+
+## 安装
+
+### 插件方式（推荐）
+
+> **本仓库是 fork。** marketplace 名为 `alan8918`，与上游 `soyenriquerocha` 区分开，
+> 两个可以同时存在而不冲突。上游是 [Hainrixz/the-architect](https://github.com/Hainrixz/the-architect)，
+> 简体中文支持与中国大陆能力域是本分支新增的。
+
+在任意 Claude Code 会话里执行两条命令：
+
+```
+/plugin marketplace add alan8918/the-architect
+/plugin install the-architect@alan8918
+```
+
+然后输入 `/architect`，**在任何目录下都可以**。蓝图写到你当前工作目录的 `./blueprints/`，绝不会写进插件目录。
+
+### 直接说中文也能唤起
+
+不打命令也行。说这些话技能会自动激活：
+
+> 帮我设计架构 · 设计一下这个应用 · 我想做一个 App · 技术选型建议 · 用什么技术栈 ·
+> 出一份技术方案 · 写个 PRD · 生成蓝图 · 规划这个项目 · 分析我现有的代码 · 给这个仓库加个功能
+
+---
+
+## 怎么运作
+
+四个阶段。你说，它设计，它生成。
+
+| 阶段 | 发生什么 | 你要做什么 |
+|---|---|---|
+| **1. 摸清需求** | 2–3 个问题。把项目归入 **14 种项目形态**之一，并先问清是新项目还是存量代码。 | 回答 |
+| **2. 深入细节** | 针对该形态的追问。定运行时技术栈和各能力域。`stack-researcher` 子代理逐一到线上仓库核验版本号。 | 回答 3–5 个 |
+| **3. 架构定稿** | 一条密集的消息：技术栈表格、各部分如何咬合、v1 做什么和明确不做什么、大致构建阶段。**两道门禁在这里执行。** | 确认或调整 |
+| **4. 生成** | 按步骤数量决定出蓝图包还是单文件并告知你。然后 `blueprint-writer` 撰写，`blueprint-validator` 反复审计直到 PASS，文件落到 `./blueprints/`。 | 等待 |
+
+### 第 4 阶段要 20–30 分钟，而且中途没有任何输出
+
+这点必须提前讲清楚。你确认架构之后，生成过程**蓝图包约 20–30 分钟，单文件约 10–15 分钟**，完成前不会有任何中间输出。这段时间是真在干活——每个版本号都要发一次线上仓库请求、完整撰写一遍、至少跑一轮校验器往返——但从你这边看就像卡住了。
+
+The Architect 有义务在开始前把预估时间告诉你。**如果它没说，那是 bug。** 去泡杯茶，回来拿到的是文件路径和第一条命令。
+
+### 两道门禁
+
+第 4 阶段在两道门禁都通过前不会启动，两道都不可跳过。
+
+**门禁 A —— `[NEEDS CLARIFICATION]` 标记必须清零。** 呈现方案之前，它会扫描自己的草稿，对每一个仍然含糊的决策打标记——范围边界、删除语义、谁能看到谁的数据、API key 归谁管。每个标记只有三种关闭方式：你回答、你确认它给的默认值、或者它变成明确的非目标。带着未关闭的标记进入生成阶段是被禁止的。
+
+> 它防的是这种情况：蓝图**读起来**很完整，因为空白处被似是而非的猜测悄悄填上了，然后构建代理凌晨两点照着猜测实现，没人可问。
+
+**门禁 B —— 对抗式事前尸检。** 从八个角度尝试在生成前先把方案否掉：错误假设、市场、竞争、可行性、单位经济模型、执行、半年后的"讣告"、以及在场所有人都没看到的盲区。经得起自我反驳的 3–7 条结论，会变成风险登记项或非目标。如果某一条直接推翻了架构，那就回去重新设计，而不是挂个"风险"标签发出去。
+
+---
+
+## 你会拿到什么
+
+一份 **20 个固定章节**的蓝图。第 9 节"构建顺序"是核心，另外 19 节都是为了支撑它。
+
+**每个构建步骤带四个字段：`Do`、`Done when`、`Verify`、`Checkpoint`。** 这是防跑偏的关键。早期版本的步骤没有"完成的定义"，自主构建代理因此没有停止条件——过度构建，然后对着从没跑起来过的功能宣布胜利。
+
+中文蓝图里的验收标准长这样（EARS 关键词保持英文大写，其余是中文）：
+
+```markdown
+**Done when**
+- [ ] WHEN 一个带无效 `Stripe-Signature` 头的 POST 到达 `/api/webhooks/stripe`，
+      THE SYSTEM SHALL 返回 `400`，且向 `subscriptions` 写入 0 行。
+- [ ] WHEN 同一个 Stripe 事件 `id` 被投递两次，THE SYSTEM SHALL 两次都返回 `200`，
+      且 `subscriptions` 的行数不变。
+
+**Verify**
+pnpm test src/app/api/webhooks/stripe          # 期望：6 passed, 0 skipped
+psql "$DATABASE_URL" -c "select status, count(*) from subscriptions group by status;"
+# 期望：active | 1
+```
+
+**"支付功能正常工作"这种写法是缺陷，不是验收标准。** 校验器会把它判为 BLOCKER——中英文一视同仁，中文模糊词黑名单（正常工作／正确处理／实现完成／符合预期／没问题……）写在 [`knowledge/localization.md`](knowledge/localization.md) 里。
+
+---
+
+## 中文支持的边界：什么翻译，什么绝不翻译
+
+这是中文用户唯一需要记住的一张表。跨过这条线，失败是**静默的**——校验器报 PASS，构建却在第 3 步崩掉。
+
+| 跟随你的语言（中文） | 永远保持 ASCII 英文 |
+|---|---|
+| 访谈对话、提问、建议 | 代码、标识符、函数名、类型名 |
+| 章节标题的中文名 | 文件名、目录名、所有路径 |
+| 每个"为什么"的理由 | 环境变量名、CLI 命令、包名 |
+| 验收标准里可观测的那部分 | EARS 关键词 `WHEN` / `THE SYSTEM SHALL` |
+| 非目标、风险、权衡、待决问题 | `tasks.json` 的键、`id`、`epic`、`files[]`、`verify[]` |
+| 任务群叙述、阶段说明 | `status` 值 `pending` / `in_progress` / `done` |
+| 生成的 `CLAUDE.md` 的正文部分 | git tag 名、分支名、commit 标题 |
+| 待澄清标记**里面**的问题 | `[NEEDS CLARIFICATION: …]` 标记本身 |
+
+几条实操约定：
+
+- **编号标题保留编号和英文名**：`## 9. 构建顺序 (Build Order)`。校验器按编号匹配，英文名供交叉引用和 `/architect-audit` 使用。
+- **目录名（slug）一律 ASCII**。有英文短名就用英文短名，没有就用无声调拼音：`智能巡检系统` → `zhineng-xunjian`。CJK 出现在 `git tag` 里，只会在构建到一半时在别人机器上炸掉。
+- **文件是 UTF-8 无 BOM**。Windows 上生成的 `.env` 带 BOM，会让第 10 节 Bootstrap 的第一条命令读到乱码的 key 名。
+- **繁體中文**：你用繁體，它就用繁體，不做简繁转换，也不在一份文档里混用。
+
+---
+
+## 14 种项目形态
+
+形态描述的是**这东西是什么**，与用什么语言写无关。
+
+| 形态 | 覆盖什么 | 默认技术栈 |
+|---|---|---|
+| [SaaS Web 应用](knowledge/shapes/saas-webapp.md) | 注册、登录、管理属于自己的东西。Web 的默认形态。 | TypeScript / Node |
+| [营销／内容站](knowledge/shapes/marketing-site.md) | 落地页、作品集、文档站。内容优先，客户端 JS 趋近于零。 | TypeScript / Node |
+| [移动 App](knowledge/shapes/mobile-app.md) | 应用商店、发版列车、平台审核。 | 移动原生 |
+| [API／后端服务](knowledge/shapes/api-backend.md) | 无界面，被别的软件或代理通过网络消费。 | TypeScript / Node |
+| [内部工具／管理后台](knowledge/shapes/internal-tool.md) | 给已知的已认证团队用的增删改查和图表。永不公开。 | TypeScript / Node |
+| [内容与社区平台](knowledge/shapes/content-community-platform.md) | 内容 + 身份 + 社交图谱。刊物、会员、课程。 | TypeScript / Node |
+| [Agent 应用](knowledge/shapes/agent-app.md) | 模型本身**就是**产品。提示词 → 工具 → 轨迹 → 评测，不是增删改查。 | TypeScript / Node |
+| [生成式媒体应用](knowledge/shapes/generative-media-app.md) | 按额度计费的异步生成——写真、广告片、语音、音乐、3D。 | TypeScript / Node |
+| [电商店面](knowledge/shapes/ecommerce-storefront.md) | 浏览、购物车、结算、支付、履约、退货。 | TypeScript / Node |
+| [CLI／库／MCP 服务器](knowledge/shapes/cli-library-mcp.md) | 使用者是开发者或代理。一套 API 界面加一条分发渠道。 | Go |
+| [浏览器扩展](knowledge/shapes/browser-extension.md) | 活在浏览器里，增强用户本来就会访问的页面，走商店审核。 | TypeScript / Node |
+| [桌面应用](knowledge/shapes/desktop-app.md) | 签名、自更新、自己管本地数据、碰文件系统和系统权限。 | TypeScript / Node |
+| [自动化／机器人／集成](knowledge/shapes/automation-bot-integration.md) | 触发器触发、任务执行、结果落到别处——并且无人值守时也能扛住失败。 | TypeScript / Node |
+| [数据管道与分析](knowledge/shapes/data-pipeline-analytics.md) | 把数据取出来、重塑、按时把答案摆到某个具体的人面前。 | Python |
+
+需求含糊时，它会点出两个候选形态、说明自己会选哪个和为什么，然后只问一个能决定归属的问题。
+
+---
+
+## 面向中国大陆的项目
+
+用户在境内，架构就不是"把英文方案翻译一遍"那么简单。
+[`knowledge/capabilities/china-mainland.md`](knowledge/capabilities/china-mainland.md) 是专门为此新增的能力域，
+它会在**画技术栈表之前**被读到——因为它一次性改写四行：托管、身份认证、支付、模型提供方。
+
+它覆盖的东西：
+
+| 领域 | 关键结论 |
+|---|---|
+| **境内 vs 境外部署** | 决定一切的第一个岔路。给出三条路（境内／港新／拆分）的对照，并明确说拆分架构是陷阱：同时承担备案负担和跨境延迟 |
+| **合规门禁** | 域名实名、ICP 备案、经营性许可证、公安网安备案、等保2.0 定级备案、生成式AI 备案／登记、数据出境——每条标注**谁需要、卡住什么、通常要多久** |
+| **数据出境阈值** | 不满 10 万人免申报；10 万–100 万人或不满 1 万人敏感信息走标准合同／认证；100 万人以上或 1 万人以上敏感信息走安全评估（自当年 1 月 1 日累计，非关基运营者） |
+| **身份认证** | 手机号+验证码为默认，微信授权为快路径。**跨端主键是 `unionid` 不是 `openid`**——这是数据模型 bug，不是偏好问题 |
+| **支付** | 微信支付＋支付宝必须都上；`out_trade_no` 是你自己的幂等键；异步通知不是账本；自动续费是签约流程不是"卡里有卡" |
+| **网络现实** | Google 全家桶（含 Firebase／FCM）境内不可达；镜像源必须做成**环境变量条件配置**，写死会让境外 CI 挂 |
+| **地图坐标系** | GCJ-02 vs WGS-84。原始 GPS 打在国内底图上偏几百米——看起来像渲染 bug，实际是定位错误 |
+| **国产模型** | 直连境外模型不是可靠的生产路径。单一网关接口是让"换供应商"变成改配置而不是重写的前提 |
+
+**最重要的一条规则：备案不是构建步骤。**
+它由监管方决定何时通过，属于校验器 finding 17 明令禁止的"依赖外部方的验收标准"——
+写成"第 3 步：Done when 备案通过"，自主构建代理要么永远卡住，要么自己宣布通过。
+它进的是蓝图 §20.1 的人工门禁清单，带责任人和日期。
+
+这个能力域同时给出 9 条可直接并入构建顺序的步骤，每条都带可脚本判定的 `Done when`——
+比如"同一条支付通知投递两次，系统应当两次都返回成功且已支付订单数不变"。
+
+---
+
+## 知识库的三轴切分
+
+**这是 v2 的设计核心。** 把三个正交的问题拆开，刷新一个库只需要改**一个文件**。
+
+| 轴 | 目录 | 回答什么 | 有版本号吗 |
+|---|---|---|---|
+| **形态** | [`knowledge/shapes/`](knowledge/shapes/)（14） | *这是什么？* | **从不** |
+| **运行时技术栈** | [`knowledge/runtime-tracks/`](knowledge/runtime-tracks/)（5） | *用什么写的？* | **是——只有这里有** |
+| **能力域** | [`knowledge/capabilities/`](knowledge/capabilities/)（19） | *它要做什么？* | **从不** |
+
+而且技术栈文件本身也只被当作**缓存，不是事实来源**：本次会话里 `stack-researcher` 跑出来的报告永远优先。过期的缓存版本号绝不会覆盖一次实时仓库核验。
+
+> **知识库文件用英文书写**，这是刻意的：它们是喂给模型的上下文，不是给人读的文档。运行时检测到你说中文，输出就是中文。给知识库提中文 PR 会被要求改回英文——但 `README.md`、`CONTRIBUTING.md` 和 `knowledge/localization.md` 例外。
+
+### 三个子代理
+
+| 代理 | 职责 |
+|---|---|
+| [`stack-researcher`](agents/stack-researcher.md) | 写下之前，对权威仓库核验每个版本号。标出预发布版、无人维护的包、以及核验不到的东西。**这是防过期的机制。** |
+| [`blueprint-writer`](agents/blueprint-writer.md) | 在隔离上下文里撰写并写出交付物，避免一次长生成把访谈线程淹掉。 |
+| [`blueprint-validator`](agents/blueprint-validator.md) | 对成稿做对抗式审计，返回 PASS 或 FAIL 并给出行号。不通过就不呈现给你。 |
+
+版本核验不到时，蓝图会写*"安装前请自行核验"*，而不是猜一个。诚实的空白胜过错误的锁定。
+
+---
+
+## 命令
+
+| 命令 | 做什么 |
+|---|---|
+| [`/architect`](commands/architect.md) | 完整访谈——四阶段、两道门禁、校验器把关 |
+| [`/architect-quick`](commands/architect-quick.md) | 快车道：三个问题、智能默认，确认门禁**照旧** |
+| [`/architect-brownfield`](commands/architect-brownfield.md) | 针对存量代码库设计变更 |
+| [`/architect-next`](commands/architect-next.md) | 恢复构建——读 `tasks.json`，输出下一个依赖已满足的任务及其验收标准和校验命令 |
+| [`/architect-refresh`](commands/architect-refresh.md) | 对照线上仓库重新核验已有蓝图的每个版本锁定，报告什么变了、什么会坏 |
+| [`/architect-audit`](commands/architect-audit.md) | 对已有蓝图或蓝图包重跑校验器 |
+
+`/architect-next` 是长周期构建能跨会话存活的关键：一个毫无记忆的新上下文，只需要一个问题被回答——*下一步做什么，怎么知道做完了？*
+
+---
+
+## 存量代码：它也能改已经存在的项目
+
+`/architect-brownfield` 先读仓库再提建议。第 0 阶段产出一张仓库地图——技术栈、约定、目录结构、测试方式、构建与部署路径——之后所有建议都必须与这张图一致。
+
+**仓库现有的约定优先于本插件的默认值。** 它也**绝不会提议重写你没让它碰的、正在正常工作的代码**。涉及迁移（框架、数据库、服务商、语言）时，蓝图必须带 §9.1：对等性验证和切换计划，含每个阶段自己的完成条件和自己的回滚路径。
+
+---
+
+## 项目结构
+
+```
+the-architect/
+├── .claude-plugin/                # 插件与市场清单
+├── CLAUDE.md                      # clone 模式入口
+├── skills/architect/SKILL.md      # 插件模式入口——状态机
+├── commands/                      # 6 个斜杠命令
+├── agents/                        # 3 个子代理
+├── knowledge/
+│   ├── shapes/                    # 14 —— 这是什么      （无版本号）
+│   ├── runtime-tracks/            #  5 —— 用什么写的    （唯一有版本号的地方）
+│   ├── capabilities/              # 19 —— 它要做什么    （无版本号）
+│   ├── localization.md            # 语言边界契约——非英文会话必读
+│   ├── skills-registry.md         # 技能名、安装命令、降级方案
+│   └── stack-compatibility.md     # 已知不兼容组合，跨轴
+├── questions/                     # 访谈流程的唯一来源
+└── templates/                     # 蓝图／CLAUDE.md／tasks.json／任务群模板
+```
+
+---
+
+## 贡献
+
+欢迎提 [issue 或 PR](https://github.com/Hainrixz/the-architect/issues)。最需要帮忙的地方：
+
+- **新形态** —— 现有 14 种没覆盖到的项目类型，放 `knowledge/shapes/`
+- **能力域** —— 把 `knowledge/capabilities/` 的决策矩阵磨得更锋利
+- **运行时技术栈** —— 新生态，或给已有技术栈刷新版本号
+- **本地化** —— `knowledge/localization.md` 的中文模糊词黑名单和术语表，欢迎补充实战中踩到的坑
+
+任何动 `knowledge/` 的 PR 都有两条硬规则：**`runtime-tracks/` 之外不许出现版本号**，以及**每个构建步骤都带一个可观测的 "Done when"**。知识库正文一律英文。
+
+---
+
+## 许可
+
+MIT，见 [LICENSE](LICENSE)。
+
+---
+
+## 由 [tododeia.com](https://tododeia.com) · [@soyenriquerocha](https://github.com/Hainrixz) 打造

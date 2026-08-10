@@ -1,5 +1,5 @@
 ---
-description: Re-verify every pinned version in an existing blueprint against the live registries and report what moved, what breaks, and what to change — un-rots a months-old blueprint without a redesign. / Reverifica cada versión fijada en un blueprint contra los registros y reporta qué cambió y qué romper.
+description: Re-verify every pinned version in an existing blueprint against the live registries and report what moved, what breaks, and what to change — un-rots a months-old blueprint without a redesign. / Reverifica cada versión fijada en un blueprint contra los registros y reporta qué cambió y qué romper. / 对照线上仓库重新核验蓝图里每一个锁定版本，报告哪些变了、哪些会破坏、该改成什么。触发："版本还是最新的吗"、"刷新一下依赖版本"。
 argument-hint: "<path/to/blueprint.md | path/to/bundle/> [--apply]"
 allowed-tools:
   - Read
@@ -99,4 +99,5 @@ On confirmation:
    caught up get `hold` with a reason, not a bump.
 4. **A refresh never redesigns.** If the right answer is "this stack choice is wrong now, not just
    old", say that in one line and point at `/architect`. Then stop.
-5. Detect and use the user's language.
+5. Detect and use the user's language. Not English? Apply `knowledge/localization.md` — prose
+   follows the user, identifiers/paths/commands/`status` values/EARS keywords stay English.

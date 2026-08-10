@@ -36,6 +36,7 @@ Alternatives: `knowledge/runtime-tracks/rails-laravel.md` when the merchant back
 | Testing | Money paths need deterministic tests, not manual clicks | `knowledge/capabilities/testing.md` |
 | Accessibility | Checkout is where inaccessible UI becomes a legal claim; also what agents parse | `knowledge/capabilities/accessibility.md` |
 | Enterprise readiness | Marketplace only — KYC, seller audit trail, payout records | `knowledge/capabilities/enterprise-readiness.md` |
+| Mainland China operation | Selling to mainland buyers replaces the card rail with WeChat Pay and Alipay, and adds ICP filing to the critical path | `knowledge/capabilities/china-mainland.md` |
 
 ## Branches that change everything
 

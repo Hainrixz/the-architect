@@ -1,7 +1,7 @@
 {
   "name": "the-architect",
   "version": "2.5.0",
-  "description": "EN: Senior software design consultant. Interviews you about what you want to build, designs the complete architecture, and generates a self-contained blueprint another Claude Code instance can build from autonomously — with acceptance criteria and a verify command on every step. Works on new projects and existing codebases. ES: Consultor senior de diseño de software. Te entrevista sobre lo que quieres construir, diseña la arquitectura completa, y genera un blueprint autocontenido desde el cual otra instancia de Claude Code puede construir de forma autónoma.",
+  "description": "EN: Senior software design consultant. Interviews you about what you want to build, designs the complete architecture, and generates a self-contained blueprint another Claude Code instance can build from autonomously — with acceptance criteria and a verify command on every step. Works on new projects and existing codebases. ES: Consultor senior de diseño de software. Te entrevista sobre lo que quieres construir, diseña la arquitectura completa, y genera un blueprint autocontenido desde el cual otra instancia de Claude Code puede construir de forma autónoma. ZH: 资深软件架构顾问。通过对话弄清你要做什么，设计完整架构，并生成一份自包含的「蓝图」——另一个 Claude Code 实例可以据此自主构建，每个步骤都带验收标准和可执行的校验命令。支持全新项目和存量代码库，全程中文对话与中文输出。",
   "author": {
     "name": "Enrique Henry",
     "url": "https://github.com/Hainrixz"
@@ -18,6 +18,12 @@
     "design",
     "meta-agent",
     "arquitectura",
+    "架构",
+    "蓝图",
+    "技术选型",
+    "中文",
+    "chinese",
+    "i18n",
     "claude-code",
     "greenfield",
     "brownfield",
