@@ -10,6 +10,7 @@ Last verified: 2026-07-27
 - Any row in the database is owned by somebody and must not be visible to everybody.
 - A third party calls your endpoints programmatically (that is auth too — API keys or client credentials, not a login form).
 - Enterprise words appear: SSO, SAML, SCIM, directory sync → also read `knowledge/capabilities/enterprise-readiness.md`.
+- The users are inside mainland China → read `knowledge/capabilities/china-mainland.md` **first**. Identity is phone-first there, email-first signup converts badly, and the cross-surface key is a WeChat `unionid` rather than anything in this file.
 
 Skip it entirely for a brochure site or a public read-only API. Adding auth "just in case" costs you a schema, a mirror-sync problem, and a whole test surface.
 
@@ -126,4 +127,5 @@ Decide the collision policy up front: when a social login returns an email that 
 - `knowledge/capabilities/api-design.md` — validating and authorizing at the request boundary; API keys for machine callers
 - `knowledge/capabilities/enterprise-readiness.md` — SSO, SAML, SCIM, audit logs when a company is the buyer
 - `knowledge/capabilities/testing.md` — tenancy-isolation tests, the regression that matters most here
+- `knowledge/capabilities/china-mainland.md` — phone-and-SMS identity, WeChat authorization, and the `unionid` data-model trap
 - `knowledge/shapes/saas-webapp.md` — the shape that pairs this with billing and multi-tenancy

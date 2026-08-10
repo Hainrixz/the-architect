@@ -14,6 +14,7 @@ Every project. What changes is the *shape* of the answer. Listen for:
 - "Some of this takes a few minutes" — the work does not belong in an HTTP handler.
 - "It emails everyone every Monday" — scheduled work, retries, idempotency.
 - "We're on AWS already" / "it can't leave our network" — the host is decided; design around it.
+- "国内" / "备案" / a mainland cloud — read `knowledge/capabilities/china-mainland.md` before choosing a region. ICP filing gates the host answering for the domain at all, and it is measured in weeks.
 - "Two people push at once and prod breaks" — you need a pipeline, not a deploy button.
 
 ## Decision matrix

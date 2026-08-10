@@ -114,6 +114,15 @@ Resume is manual. One file to send, paste, or commit anywhere — that is the wh
    "Postgres — because it's a database" is a defect.
 6. **Language.** Write the blueprint in the user's language. Keep code, commands, file paths,
    env var names, and EARS keywords (`WHEN`, `THE SYSTEM SHALL`) in English regardless.
+   When that language is not English, `knowledge/localization.md` is binding, and two rules decide
+   whether the document survives its own validator:
+   - **Numbered headings keep the number *and* the English name** — `## 9. 构建顺序 (Build Order)`.
+     Validator finding #11 matches by number; the English name is what every name-based
+     cross-reference and `/architect-audit` read.
+   - **Nothing a machine reads is translated** — the slug and every path (ASCII, from an English
+     short name or toneless pinyin), table and column names, API routes, git tags and branches,
+     `tasks.json` keys and its `status` values `pending` / `in_progress` / `done`, and the tokens
+     `[NEEDS CLARIFICATION: …]` and `NOT APPLICABLE`. Files are UTF-8 **without BOM**.
 
 ---
 ---

@@ -10,6 +10,7 @@ Last verified: 2026-07-27
 - The brief says "pricing page", "free trial", "upgrade", "seats", "subscription", "checkout", or "payouts".
 - Access to a feature depends on what someone bought — entitlement gating is a payments problem, not a UI problem.
 - Money must reach a third party (a seller, a creator, a contractor) rather than staying with you.
+- The payers are inside mainland China → read `knowledge/capabilities/china-mainland.md` instead of picking a card processor. WeChat Pay and Alipay are both required, recurring billing is a signing flow rather than a card on file, and daily reconciliation is a job you own.
 
 Skip only when the first release is genuinely free with no upgrade path. Add the `subscription` table anyway if a paid tier appears anywhere in the brief; retrofitting entitlements is worse than carrying an unused table.
 

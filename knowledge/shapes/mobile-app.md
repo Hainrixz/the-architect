@@ -45,6 +45,7 @@ Alternatives:
 | Accessibility | Screen readers and dynamic type are review-gated on both stores | `knowledge/capabilities/accessibility.md` |
 | Payments rails | Digital goods must use store IAP; physical goods must not | `knowledge/capabilities/payments-rails.md` |
 | Database | Only when composing with a backend of your own | `knowledge/capabilities/database.md` |
+| Mainland China operation | No Play Store and no FCM — per-vendor stores and per-vendor push channels, each with its own review | `knowledge/capabilities/china-mainland.md` |
 
 ## Data model
 

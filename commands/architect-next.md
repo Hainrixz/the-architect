@@ -1,5 +1,5 @@
 ---
-description: Resume a build — reads tasks.json from a bundle, finds the first pending task whose dependencies are all done, and prints it with its epic, acceptance criteria, and every verify command. This is what lets a long build survive across sessions. / Reanuda una construcción desde tasks.json y muestra la siguiente tarea desbloqueada.
+description: Resume a build — reads tasks.json from a bundle, finds the first pending task whose dependencies are all done, and prints it with its epic, acceptance criteria, and every verify command. This is what lets a long build survive across sessions. / Reanuda una construcción desde tasks.json y muestra la siguiente tarea desbloqueada. / 恢复构建——读取蓝图包的 tasks.json，找出依赖已满足的第一个待办任务，连同所属任务群、验收标准和全部校验命令一起输出。触发："继续构建"、"下一步做什么"、"接着上次的进度"。
 argument-hint: "[path/to/bundle] [--list | --task <id> | --start <id> | --done <id>]"
 allowed-tools:
   - Read
@@ -125,5 +125,6 @@ the array is the authority; that is the entire point of writing more than one.
    stale pins or a new pass of `/architect`, not silent improvisation here.
 4. **One task per invocation.** The card exists because agent reliability falls off a cliff with task
    length. Handing over three tasks at once undoes the reason the bundle was split.
-5. Detect and use the user's language for the surrounding prose. Keep ids, commands, and file paths
+5. Detect and use the user's language for the surrounding prose (`knowledge/localization.md` for the
+   full boundary, including the Simplified-Chinese specifics). Keep ids, commands, and file paths
    verbatim.

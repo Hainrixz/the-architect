@@ -246,7 +246,11 @@ Hand it a complete brief — the subagent has no memory of the interview:
 - The Risk Register survivors from Gate B
 - The design system decided in Phase 3 — real hex values, type pairing, component style
 - Output mode from step 2, and the exact target paths
-- The user's language, so the blueprint is written in it
+- The user's language, so the blueprint is written in it — and, when it is not English, an explicit
+  line telling the writer to apply `knowledge/localization.md`: numbered headings keep their number
+  and their English name, the slug and every path are ASCII, `tasks.json` keys and `status` values
+  and the EARS keywords stay English, and the Simplified-Chinese vague-word blacklist applies to
+  every acceptance criterion exactly as the English one does
 - **The verify-critical config files it must emit** — say it explicitly in the brief, because this is
   the part writers skip. Every config file a §9 `Verify` command needs in order to run is emitted in
   §19.6 as a real file with complete content: test-runner config, e2e-runner config, test

@@ -9,7 +9,65 @@ MAJOR bump in a repo with no code.
 
 ## [Unreleased]
 
-Nothing yet.
+### Added
+
+- **Simplified Chinese (zh-Hans) support.** The interview already ran in the user's language; what
+  was missing was everything around it.
+  - `knowledge/localization.md` — the new binding contract for non-English sessions. Defines the
+    translation boundary (prose and headings follow the user; identifiers, paths, commands, git
+    refs, `tasks.json` keys and `status` values stay ASCII English), the canonical bilingual heading
+    form `## 9. 构建顺序 (Build Order)`, ASCII slug derivation from a Chinese project name, the
+    Simplified-Chinese vague-word blacklist, CJK typography and encoding rules, a fixed EN→ZH
+    terminology table, and the failure modes each rule prevents.
+  - **Activation.** Simplified-Chinese trigger phrases added to the `architect` skill description,
+    `plugin.json`, `marketplace.json`, and all six command descriptions — "帮我设计架构",
+    "技术选型建议", "生成蓝图", "分析我现有的代码", "继续构建" and friends now route the same way
+    their English and Spanish equivalents do.
+  - **Validator hardening.** Finding 2 (unobservable acceptance criteria) gained its Chinese
+    counterparts — 正常工作 / 正确处理 / 实现完成 / 符合预期 and the hedges 应该 / 尽量 / 基本上.
+    Finding 11 now states explicitly that sections match **by number, never by heading text**, so a
+    translated heading is not a missing section. New finding 38 and new **Sweep 28** cover the
+    localization boundary: non-ASCII in a path, identifier, git ref or `tasks.json` field;
+    translated EARS keywords, `status` values, `NOT APPLICABLE` or `[NEEDS CLARIFICATION]` tokens;
+    and a UTF-8 BOM on an emitted `workspace/` file.
+  - **README** gained a full 简体中文 section, including the translate/never-translate table.
+
+- **`knowledge/capabilities/china-mainland.md` — the 19th capability.** Shipping to users inside
+  mainland China is not a translation problem, it is an architecture problem, and the knowledge base
+  had no file that said so. Covers: the inside-versus-outside-the-border fork and why the split
+  architecture is a trap; the compliance gates as a table of *who needs it, what it blocks, how long
+  it takes* (domain real-name, ICP filing, commercial ICP licence, public-security filing, MLPS 2.0
+  grading, generative-AI filing); the 备案-versus-登记 distinction for AI features and the disclosure
+  surface it requires; the cross-border personal-information thresholds that decide between exemption,
+  standard contract and security assessment; phone-first identity and the `unionid`-versus-`openid`
+  data-model trap; WeChat Pay and Alipay mechanics that differ from a card processor — `out_trade_no`
+  idempotency, the notification that is not a ledger, daily reconciliation, signing-based recurring
+  billing; the network dependencies that resolve everywhere except inside the border; GCJ-02 versus
+  WGS-84; and pre-publish content moderation. Nine build steps with scriptable acceptance criteria,
+  and eleven pitfalls.
+- **Linked from five shapes and four capabilities**, per the reciprocity rule — `saas-webapp`,
+  `ecommerce-storefront`, `mobile-app`, `agent-app`, `content-community-platform`, plus `auth`,
+  `payments-rails`, `deployment` and `ai-llm-integration`. Two new rows in
+  `knowledge/stack-compatibility.md`: a Google-hosted runtime dependency against mainland users, and
+  a hardcoded registry mirror against CI running outside the border.
+- **The interview now asks.** Phase 1's constraints question and Phase 2's universal follow-ups both
+  gained the mainland-China gate, with an explicit instruction not to infer it from the interview
+  language — a Chinese-speaking founder building for a US market needs none of it.
+
+### Why (China capability)
+
+The filings are the whole point. Every one of them completes when a regulator acts, which makes them
+exactly the acceptance criterion finding 17 forbids as a build gate — an autonomous builder either
+stalls forever on "Done when: 备案通过" or quietly self-certifies. Writing them down as §20.1 manual
+gates, with the engineering work that *can* be gated separated out, is the difference between a
+blueprint that builds and one that stops at step three.
+
+### Why
+
+Detecting the user's language was never the problem. Three things broke silently underneath it: the
+skill did not activate on Chinese phrasing, the validator's English-only regexes reported "0 vague
+criteria" over a document it could not read, and a translated `status` value made `/architect-next`
+report a build finished on turn one. Each failure looked like success.
 
 ---
 

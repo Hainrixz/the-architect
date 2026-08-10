@@ -51,6 +51,7 @@ Alternatives: `knowledge/runtime-tracks/python.md` when the team is Python-nativ
 | Testing | Prompts are code; evals are their test suite | `knowledge/capabilities/testing.md` |
 | Deployment | Long responses and background workers break naive hosting | `knowledge/capabilities/deployment.md` |
 | Payments, enterprise readiness *(later)* | Selling credits; buyers asking about retention and model training | `knowledge/capabilities/payments-rails.md`, `knowledge/capabilities/enterprise-readiness.md` |
+| Mainland China operation | Foreign model endpoints are not a production path inside the border, and a public AI feature carries a filing and a disclosure surface | `knowledge/capabilities/china-mainland.md` |
 
 ## Data model
 

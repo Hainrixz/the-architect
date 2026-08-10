@@ -103,7 +103,7 @@ things:
 |---|---|---|---|
 | **Shape** | `knowledge/shapes/` (14) | *What is it?* | **Never** |
 | **Runtime track** | `knowledge/runtime-tracks/` (5) | *What is it written in?* | **Only here** |
-| **Capability** | `knowledge/capabilities/` (18) | *What does it do?* | **Never** |
+| **Capability** | `knowledge/capabilities/` (19) | *What does it do?* | **Never** |
 
 Before you write, decide which axis your contribution belongs to. Most rejected PRs are a shape file
 that quietly contains a runtime track, or a capability that is really a shape.
@@ -356,7 +356,10 @@ Match the repo. It is opinionated and dense.
 - **Concrete over vague.** "max 300 lines per component" beats "keep files short".
 - **No filler.** Cut "it's important to note", "in today's fast-paced world", "when it comes to".
 - **Knowledge files are written in English.** The Architect detects the user's language at runtime
-  and responds in it. Only `README.md` and this file are dual-language.
+  and responds in it. Only `README.md`, this file, and `knowledge/localization.md` carry non-English
+  text — and in the last one it is data (a vague-word blacklist, a terminology table), not prose.
+  A PR that translates a knowledge file will be asked to revert it; a PR that *extends*
+  `knowledge/localization.md` with a term or a failure mode you actually hit is welcome.
 - **No emoji in knowledge files.**
 - Every knowledge file carries a `Last verified:` line and ends with a `## See also` linking at least
   two real paths that exist.
@@ -366,6 +369,15 @@ y bullets en vez de prosa; concreto en vez de vago; sin relleno. Los archivos de
 escriben **en inglés** — The Architect detecta el idioma del usuario en tiempo de ejecución; solo el
 README y este archivo son bilingües. Sin emoji. Cada archivo lleva `Last verified:` y termina con un
 `## See also` que enlaza al menos dos rutas reales.
+
+**ZH —— 风格与语言。** 和本仓库一致：观点明确、信息密集。推荐一个方案并说明理由，不要罗列五个选项让人挑；
+用表格和列表，不要大段散文；具体胜过含糊（"每个组件最多 300 行"胜过"文件别太长"）；不要废话；知识库文件
+不用 emoji；每个文件带 `Last verified:` 行，并以 `## See also` 结尾、至少链接两条真实存在的路径。
+
+**`knowledge/` 下的文件一律用英文写。** 它们是喂给模型的上下文，不是给人读的文档——The Architect 在运行时
+检测用户语言并用该语言回应。只有 `README.md`、本文件和 `knowledge/localization.md` 含非英文内容，而后者里的
+中文是**数据**（模糊词黑名单、术语对照表），不是叙述。把知识库翻译成中文的 PR 会被要求还原；给
+`knowledge/localization.md` 补充术语或你真实踩到的失败模式的 PR，非常欢迎。
 
 ---
 
